@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+"**Importar funciones de autenticación django: (authenticate), ingreso (login), y salida(logout)"
 from django.contrib.auth import authenticate, login, logout
+"**Importamos las funciones de redireccionamiento y reverse"
 from django.http import HttpResponseRedirect, JsonResponse, FileResponse
 from django.urls import reverse
 from .models import publicacion, comentario
@@ -13,10 +15,13 @@ def ingresoUsuario(request):
     if request.method == 'POST':
         nombreUsuario = request.POST.get('nombreUsuario')
         contraUsuario = request.POST.get('contraUsuario')
+        "**Asignamos los valores de nombre y password de usuario a la variable usrObj"
         usrObj = authenticate(request,username=nombreUsuario, password=contraUsuario)
         if usrObj is not None:
+            "**Si el usuario existe se otorga el acceso login - redireccionamos a información de usuario"
             login(request,usrObj)
             return HttpResponseRedirect(reverse('app3:informacionUsuario'))
+            "**Si el usuario no existe se redireciona a la funición ingreso de usuario"
         else:
             return HttpResponseRedirect(reverse('app3:ingresoUsuario'))
     return render(request,'ingresoUsuario.html')
@@ -26,7 +31,6 @@ def informacionUsuario(request):
     return render(request,'informacionUsuario.html',{
         'allPubs':publicacion.objects.all()
     })
-
 
 @login_required(login_url='/')
 def cerrarSesion(request):
@@ -188,6 +192,7 @@ datosUsuario.objects.create(
 )
 
 """
+
 @login_required(login_url='/')
 def consolaAdministrador(request):
     allUsers = User.objects.all().order_by('id')
@@ -219,5 +224,5 @@ def actualizarUsuario(request):
     ejecutar el metodo save() para su respectiva actualizacion
     """
 
-    return HttpResponseRedirect(reverse('app4:consolaAdministrador'))
+    return HttpResponseRedirect(reverse('app3:consolaAdministrador'))
 
