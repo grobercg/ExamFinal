@@ -265,7 +265,7 @@ def obtenerDatosUsuario(request):
     })
 
 def actualizarUsuario(request):
-    """
+    """    AQUI YA ME PERDI :( !!!
     Pregunta 5
     En esta funcion recibira los datos del formulario de actualizacion de usuario
     Debe capturar dichos datos, recuerde que en el input con atributo name idUsuario
@@ -273,6 +273,7 @@ def actualizarUsuario(request):
     de la base de datos. Con el objeto capturado modificar los campos respectivos y finalmente
     ejecutar el metodo save() para su respectiva actualizacion
     """
+    datos
 
     return HttpResponseRedirect(reverse('app3:consolaAdministrador'))
 

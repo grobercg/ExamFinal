@@ -103,23 +103,25 @@ function cargarInformacionUsuario(idUsuario)
     .then(data => {
         console.log(data)
         usernameUsuario = document.getElementById('usernameUsuario')
-        apellido=
+        nombreUsuario = document.getElementById('nombreUsuario')
+        apellidoUsuario = document.getElementById('apellidoUsuario')
         profesionUsuario = document.getElementById('profesionUsuario')
         nroCelular = document.getElementById('nroCelular')
         perfilUsuario = document.getElementById('perfilUsuario')
 
-        usernameUsuario = ''
+        usernameUsuario.value = ''
+        nombreUsuario.value = ''
+        apellidoUsuario.value = ''
         profesionUsuario.value = ''
         nroCelular.value = ''
         perfilUsuario.value = ''
 
         usernameUsuario.value = data.usernameUsuario
+        nombreUsuario.value = data.nombreUsuario
+        apellidoUsuario.value = data.apellidoUsuario
         profesionUsuario.value = data.profesionUsuario
         nroCelular.value = data.nroCelular
         perfilUsuario.value = data.perfilUsuario
-
-
-
     })
 
 

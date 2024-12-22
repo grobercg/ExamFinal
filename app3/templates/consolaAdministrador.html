@@ -166,6 +166,9 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <div style="display: none;">
+                        <input id="idUsuario" name="idUsuario" value="">
+                    </div>
                     <div class="row form-group justify-content-around mb-3">
                         <div class="col-11">
                             <label>Username :</label>
@@ -207,7 +210,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Registrar</button>
+                    <button type="submit" class="btn btn-primary" onclick="actualizarUsuario()">Registrar</button>
                 </div>
             </form>
         </div>
