@@ -98,6 +98,31 @@ function getCookie(name)
 
 function cargarInformacionUsuario(idUsuario)
 {
+    fetch(`/obtenerDatosUsuario?idUsuario=${idUsuario}`)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data)
+        usernameUsuario = document.getElementById('usernameUsuario')
+        apellido=
+        profesionUsuario = document.getElementById('profesionUsuario')
+        nroCelular = document.getElementById('nroCelular')
+        perfilUsuario = document.getElementById('perfilUsuario')
+
+        usernameUsuario = ''
+        profesionUsuario.value = ''
+        nroCelular.value = ''
+        perfilUsuario.value = ''
+
+        usernameUsuario.value = data.usernameUsuario
+        profesionUsuario.value = data.profesionUsuario
+        nroCelular.value = data.nroCelular
+        perfilUsuario.value = data.perfilUsuario
+
+
+
+    })
+
+
     /*
     PREGUNTA 4
     DESARROLLAR LA FUNCION DE JAVASCRIPT QUE PERMITA CONSULTAR LA RUTA 
