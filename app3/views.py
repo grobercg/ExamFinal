@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 "**Importamos las funciones de redireccionamiento y reverse"
 from django.http import HttpResponseRedirect, JsonResponse, FileResponse
 from django.urls import reverse
-from .models import publicacion, comentario
+from .models import publicacion, comentario, datosUsuario
 import json
 import base64
 from django.contrib.auth.models import User
@@ -196,10 +196,38 @@ datosUsuario.objects.create(
 @login_required(login_url='/')
 def consolaAdministrador(request):
     allUsers = User.objects.all().order_by('id')
+    if request.method == 'POST':
+        pass
+        usernameUsuario = request.POST.get('usernameUsuario')
+        contraUsuario = request.POST.get('contraUsuario')
+        nombreUsuario = request.POST.get('nombreUsuario')
+        apellidoUsuario = request.POST.get('apellidoUsuario')
+        emailUsuario = request.POST.get('emailUsuario')
+        profesionUsuario = request.POST.get('profesionUsuario')
+        nroCelular = request.POST.get('nroCelular')
+        perfilUsuario = request.POST.get('perfilUsuario')
+
+        nuevoUsuario = User.objects.create(
+            username=usernameUsuario,
+            email=emailUsuario
+        )
+        nuevoUsuario.set_password(contraUsuario)
+        nuevoUsuario.first_name = nombreUsuario
+        nuevoUsuario.last_name = apellidoUsuario
+        nuevoUsuario.is_staff = True
+        nuevoUsuario.save()
+
+        datosUsuario.objects.create(
+            profesion=profesionUsuario,
+            nroCelular=nroCelular,
+            perfilUsuario=perfilUsuario,
+            usrRel=nuevoUsuario
+        )
+        return HttpResponseRedirect(reverse('app3:consolaAdministrador'))
     return render(request,'consolaAdministrador.html',{
         'allUsers':allUsers
     })
-
+    
 
 def obtenerDatosUsuario(request):
     idUsuario = request.GET.get('idUsuario')
@@ -210,6 +238,28 @@ def obtenerDatosUsuario(request):
     Con el id del usuario se puede obtener el objeto y devolver
     el objeto Json con la informacion necesaria.
     """
+    try:
+        objUser = User.objects.get(id=idUsuario)
+        print(objUser)
+        return JsonResponse ({
+                'usernameUsuario': objUser.username,
+                'nombreUsuario': objUser.first_name,
+                'apellidoUsuario': objUser.last_name,
+                'profesionUsuario': objUser.datosusuario.profesion,
+                'nroCelular': objUser.datosusuario.nroCelular,
+                'perfilUsuario': objUser.datosusuario.perfilUsuario
+        })
+    
+    except:
+        return JsonResponse({
+                'usernameUsuario': 'Sin datos',
+                'nombreUsuario': 'Sin datos',
+                'apellidoUsuario': 'Sin datos',
+                'profesionUsuario': 'Sin datos',
+                'nroCelular': 'Sin datos',
+                'perfilUsuario': None
+
+        })
     return JsonResponse({
         'resp':'200'
     })

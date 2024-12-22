@@ -28,7 +28,7 @@
                         </div>
                     </div>
                     <div class="col-1">
-                        <a class="btn btn-success" href="#"><i class="fa-solid fa-right-to-bracket"></i> Salir</a>
+                        <a class="btn btn-success" href="{% url 'app3:cerrarSesion' %}"><i class="fa-solid fa-right-to-bracket"></i> Salir</a>
                     </div>
                 </div>
             </div>
@@ -88,7 +88,8 @@
             NO OLVIDAR COLOCAR LA REFERENCIA AL CSRF TOKEN COMO EN LOS OTROS FORMULARIOS PARA TRASLADAR CORRECTAMENTE
             LA INFORMACION
             -->
-            <form method="post" action="#">
+            <form method="post" action="{% url 'app3:consolaAdministrador' %}" enctype="multipart/form-data">
+            {% csrf_token %}
                 <div class="modal-header">
                     <h5 class="modal-title">Crear nuevo usuario</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -154,6 +155,7 @@
 -->
 
 
+<!--Editar usuario-->
 <!--Editar usuario-->
 <div class="modal fade" id="editarUsuario" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-dialog-centered">
